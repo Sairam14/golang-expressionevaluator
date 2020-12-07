@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-func (this *token)  evaluateCondition(iterator tokenIterator) bool {
+func (this  token)  evaluateCondition(iterator tokenIterator) bool {
 	result := this.evaluateDisjunction(iterator)
 	return result
 }
 
-func (this *token) evaluateDisjunction(iterator tokenIterator) bool {
+func (this token) evaluateDisjunction(iterator tokenIterator) bool {
 	lhs  := this.evaluateConjunction(iterator)
 
 	return lhs
 }
 
-func (this *token) evaluateNegation(iterator tokenIterator) bool {
+func (this token) evaluateNegation(iterator tokenIterator) bool {
 	negated := false
 	for this.tokenKind == "!"{
 		negated = !negated
@@ -31,7 +31,7 @@ func (this *token) evaluateNegation(iterator tokenIterator) bool {
 	}
 }
 
-func (this *token) evaluateConjunction(iterator tokenIterator) bool {
+func (this token) evaluateConjunction(iterator tokenIterator) bool {
 	var lhs = this.evaluateNegation(iterator)
 
 	if iterator.hasNext() {
@@ -53,7 +53,7 @@ func (this *token) evaluateConjunction(iterator tokenIterator) bool {
 	return lhs
 }
 
-func (this *token) evaluateString(iterator tokenIterator) string {
+func (this token) evaluateString(iterator tokenIterator) string {
 	result := ""
 	switch this.tokenKind {
 	case STRING:
@@ -64,7 +64,7 @@ func (this *token) evaluateString(iterator tokenIterator) string {
 	return result
 }
 
-func (this *token) evaluateInteger(iterator tokenIterator) float64 {
+func (this token) evaluateInteger(iterator tokenIterator) float64 {
 	result := 0.0
 	switch  this.tokenKind {
 	case FLOAT:
@@ -78,7 +78,7 @@ func (this *token) evaluateInteger(iterator tokenIterator) float64 {
 	return result
 }
 
-func (this *token) evaluateEquality(iterator tokenIterator) bool{
+func (this token) evaluateEquality(iterator tokenIterator) bool{
 	result := false
 
 	if this.tokenKind == "BAREWORD" || this.tokenKind == "STRING" {
